@@ -1,48 +1,35 @@
 from turtle import Turtle, Screen
+import random
 
 # Set of colours for turtles in race.
 colours = ["blue", "red", "yellow", "pink", "purple", "green", "orange", "cyan", "lime"]
 screen = Screen()
 
-# Configuring dimensions of the screen.
-screen.setup(width=500, height=500)
+screen.setup(width = 700, height=700)
+y_coordinate = -150
 
-turtle_a = Turtle(shape="turtle")
-turtle_a.color(colours[0])
-
-turtle_b = Turtle(shape="turtle")
-turtle_b.color(colours[1])
-
-turtle_c = Turtle(shape="turtle")
-turtle_c.color(colours[2])
-
-turtle_d = Turtle(shape="turtle")
-turtle_d.color(colours[3])
-
-turtle_e = Turtle(shape="turtle")
-turtle_e.color(colours[4])
-
-turtle_f = Turtle(shape="turtle")
-turtle_f.color(colours[5])
-
-turtle_g = Turtle(shape="turtle")
-turtle_g.color(colours[6])
-
-turtle_h = Turtle(shape="turtle")
-turtle_h.color(colours[7])
-
-turtle_i = Turtle(shape="turtle")
-turtle_i.color(colours[-1])
-
-# List of variables
-vars = [turtle_a, turtle_b, turtle_c, turtle_d, turtle_e, turtle_f, turtle_g, turtle_h, turtle_i]
-
-y_coordinate = 230
-for turtle_obj in vars:
-    turtle_obj.penup()
-    turtle_obj.goto(x=-240, y=y_coordinate)
-    y_coordinate -= 500/9
-    
+turtles = []
+for i in range(9):
+    my_turtle = Turtle(shape="turtle")
+    my_turtle.penup()
+    my_turtle.color(colours[i])
+    my_turtle.goto(x=-300, y=y_coordinate)
+    y_coordinate += 150/4
+    turtles.append(my_turtle)
    
-# Screen continuously runs, until a command is sent to close window.
-screen.mainloop()
+user_bet = screen.textinput(title="Make your bet", prompt="Which turtle will win the race?") 
+
+while True:
+    for i in turtles:
+        i.forward(random.randint(100, 150))
+    
+        if i.xcor() > 300:
+            if i.color == user_bet:
+                print(f"You won. The {i.color()[0]} turtle won the race.")
+                break
+                
+                
+            else:
+                print(f"You lose. The {i.color()[0]} turtle lost the race.")
+                break
+                
